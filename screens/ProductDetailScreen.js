@@ -1,0 +1,113 @@
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Button,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import React from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { ArrowLeftCircleIcon } from "react-native-heroicons/mini";
+import { formatCurrency } from "../utils";
+
+const ProductDetailScreen = () => {
+  const navigation = useNavigation();
+  const { product } = useRoute().params;
+  if (!product) {
+    return (
+      <SafeAreaView>
+        <View>
+          <Text>No hay producto</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+  const price = formatCurrency(product.price);
+
+  return (
+    <ScrollView>
+      <View style={{ backgroundColor: "#fff", paddingTop: 60, padding: 20 }}>
+        <Image
+          resizeMode="contain"
+          source={{ uri: product.image }}
+          style={styles.image}
+        />
+        <TouchableOpacity
+          style={styles.backIcon}
+          onPress={() => navigation.navigate("Home")}
+        >
+          <ArrowLeftCircleIcon size={30} color="#2d3748" />
+        </TouchableOpacity>
+      </View>
+
+      <View style={{ backgroundColor: "white" }}>
+        <View style={{ padding: 20 }}>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              ALignItems: "center",
+            }}
+          >
+            <Text numberOfLines={2} style={{ fontSize: 20, flexBasis: "70%" }}>
+              {product.title}
+            </Text>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                flexBasis: "30%",
+                textAlign: "right",
+              }}
+            >
+              {price}
+            </Text>
+          </View>
+
+          <View style={{ marginTop: 40 }}>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              Descripción
+            </Text>
+            <Text style={{ fontSize: 16, marginTop: 10 }}>
+              {product.description}
+            </Text>
+
+            <View style={{ marginTop: 20 }}>
+              <View style={{ marginTop: 20 }}>
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                  Categoría
+                </Text>
+                <Text style={{ fontSize: 16, marginTop: 10 }}>
+                  {product.category}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  image: {
+    width: "100%",
+    height: 250,
+  },
+  backIcon: {
+    position: "absolute",
+    top: 50,
+    left: 10,
+  },
+});
+
+export default ProductDetailScreen;
