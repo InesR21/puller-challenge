@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import ProductDetailScreen from "./screens/ProductDetailScreen";
 import CreateProductScreen from "./screens/CreateProductScreen";
+import DeleteProductScreen from "./screens/DeleteProductScreen";
+import FeedbackScreen from "./screens/FeedbackScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +26,20 @@ export default function App() {
           component={CreateProductScreen}
           options={{
             presentation: "modal",
+          }}
+        />
+        <Stack.Screen
+          name="DeleteProduct"
+          component={DeleteProductScreen}
+          options={{
+            presentation: "fullScreenModal",
+          }}
+        />
+        <Stack.Screen
+          name="Feedback"
+          component={FeedbackScreen}
+          options={{
+            presentation: "fullScreenModal",
           }}
         />
       </Stack.Navigator>
