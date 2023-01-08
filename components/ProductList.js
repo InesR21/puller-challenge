@@ -1,14 +1,35 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Image } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
 import ProductItem from "./ProductItem";
+import * as Animatable from "react-native-animatable";
 
 const ProductList = ({ products = [] }) => {
-  const navigation = useNavigation();
   if (!products.length) {
     return (
-      <View>
-        <Text>No hay movimientos</Text>
+      <View
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: 40,
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "500",
+            color: "#2d3748",
+            marginBottom: 20,
+          }}
+        >
+          No hay productos
+        </Text>
+        <Animatable.Image
+          animation="pulse"
+          iterationCount={1}
+          source={require("../assets/img/noFound.gif")}
+          style={{ width: 200, height: 200 }}
+        />
       </View>
     );
   }

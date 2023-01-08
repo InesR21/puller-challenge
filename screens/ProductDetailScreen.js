@@ -37,7 +37,7 @@ const ProductDetailScreen = () => {
           height: height,
         }}
       >
-        <View style={{ paddingTop: 60, padding: 20 }}>
+        <View style={{ paddingTop: 80, paddingHorizontal: 20 }}>
           <Image
             resizeMode="contain"
             source={{ uri: product.image }}
@@ -91,6 +91,7 @@ const ProductDetailScreen = () => {
                 Descripción
               </Text>
               <Text
+                numberOfLines={12}
                 style={{ fontSize: 16, marginTop: 10, textAlign: "justify" }}
               >
                 {product.description}

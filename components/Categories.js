@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getCategories } from "../api/product-service";
 import { getBackgroundColor, getTextColor } from "../utils";
+import * as Animatable from "react-native-animatable";
 
 const Categories = ({ filterByCategory }) => {
   const [categories, setCategories] = useState([]);
@@ -16,7 +17,11 @@ const Categories = ({ filterByCategory }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <Animatable.View
+      animation="slideInDown"
+      duration={1000}
+      style={styles.container}
+    >
       {categories.map((category) => (
         <View
           key={category}
@@ -32,7 +37,7 @@ const Categories = ({ filterByCategory }) => {
           </TouchableOpacity>
         </View>
       ))}
-    </View>
+    </Animatable.View>
   );
 };
 

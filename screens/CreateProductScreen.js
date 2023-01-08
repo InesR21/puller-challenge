@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { postProduct, putProduct } from "../api/product-service";
 import * as Animatable from "react-native-animatable";
+import Loading from "../components/Loading";
 
 const CreateProductScreen = () => {
   const navigation = useNavigation();
@@ -72,18 +73,7 @@ const CreateProductScreen = () => {
   }, [error, productCreated]);
 
   if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text style={{ color: "#2c5282", fontSize: 15, fontWeight: "600" }}>
-          <Animatable.Image
-            animation="pulse"
-            iterationCount={1}
-            source={require("../assets/img/loading.gif")}
-            style={{ width: 300, height: 300 }}
-          />
-        </Text>
-      </View>
-    );
+    return <Loading />;
   }
 
   return (

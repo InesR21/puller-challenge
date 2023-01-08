@@ -5,23 +5,22 @@ import SearchBar from "../components/SearchBar";
 import Categories from "../components/Categories";
 import ProductList from "../components/ProductList";
 import CreateProductIcon from "../components/CreateProductIcon";
+import Loading from "../components/Loading";
 
 const HomeScreen = () => {
   const [products, setProducts] = useState([]);
   const [productBackup, setProductBackup] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [seeFilters, setSeeFilters] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const getData = async () => {
+    setLoading(true);
     const responde = await getProducts();
     setProducts(responde);
     setProductBackup(responde);
+    setLoading(false);
   };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
   const handleFilter = (category) => {
     if (category === "all") {
       setProducts(productBackup);
@@ -45,8 +44,16 @@ const HomeScreen = () => {
   };
 
   useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
     handleSearch();
   }, [searchValue]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

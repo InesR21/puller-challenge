@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import * as Animatable from "react-native-animatable";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { deleteProduct } from "../api/product-service";
+import Loading from "../components/Loading";
 
 const DeleteProductScreen = () => {
   const { product } = useRoute()?.params;
@@ -40,25 +41,7 @@ const DeleteProductScreen = () => {
   }, [error, productDeleted]);
 
   if (loading) {
-    return (
-      <View
-        style={{
-          display: "flex",
-          alignItems: "center",
-          padding: 20,
-          backgroundColor: "#fff",
-          flex: 1,
-          justifyContent: "space-evenly",
-        }}
-      >
-        <Animatable.Image
-          animation="pulse"
-          iterationCount={1}
-          source={require("../assets/img/loading.gif")}
-          style={{ width: 300, height: 300 }}
-        />
-      </View>
-    );
+    return <Loading />;
   }
 
   return (
