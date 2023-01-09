@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import { Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Animatable from "react-native-animatable";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -18,7 +18,6 @@ const DeleteProductScreen = () => {
     if (responde.error) {
       setError(responde.error);
     } else {
-      console.log("handleDeleteProduct", responde);
       setProductDeleted(responde);
     }
     setTimeout(() => {
@@ -30,7 +29,7 @@ const DeleteProductScreen = () => {
     if (error) {
       navigation.navigate("Feedback", {
         error: error,
-        typeOperation: "delete",
+        typeOperation: "Delete",
       });
     } else if (Object.keys(productDeleted).length > 0) {
       navigation.navigate("Feedback", {

@@ -4,36 +4,41 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { postProduct, putProduct } from "../api/product-service";
-import * as Animatable from "react-native-animatable";
 import Loading from "../components/Loading";
+import { useForm, Controller } from "react-hook-form";
 
 const CreateProductScreen = () => {
   const navigation = useNavigation();
-  const [newProduct, setNewProduct] = useState({
-    title: "",
-    price: "",
-    description: "",
-    category: "",
-    image: "https://i.pravatar.cc",
-    id: 155455,
-  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [productCreated, setProductCreated] = useState({});
   const updateProduct = useRoute()?.params?.product;
-
-  const handleCreateProduct = async () => {
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: "",
+      price: "",
+      description: "",
+      category: "",
+      image: "https://i.pravatar.cc",
+      id: 155455,
+    },
+  });
+  const handleCreateProduct = async (data) => {
     setLoading(true);
     let responde;
     if (updateProduct) {
-      responde = await putProduct(newProduct.id, newProduct);
+      responde = await putProduct(data.id, data);
     } else {
-      responde = await postProduct(newProduct);
+      responde = await postProduct(data);
     }
     if (responde.error) {
       setError(responde.error);
@@ -47,14 +52,12 @@ const CreateProductScreen = () => {
 
   useEffect(() => {
     if (updateProduct) {
-      setNewProduct({
-        title: updateProduct.title,
-        price: updateProduct.price.toString(),
-        description: updateProduct.description,
-        category: updateProduct.category,
-        image: updateProduct.image,
-        id: updateProduct.id,
-      });
+      setValue("title", updateProduct.title);
+      setValue("price", updateProduct.price.toString());
+      setValue("description", updateProduct.description);
+      setValue("category", updateProduct.category);
+      setValue("image", updateProduct.image);
+      setValue("id", updateProduct.id);
     }
   }, [updateProduct]);
 
@@ -83,51 +86,120 @@ const CreateProductScreen = () => {
           width: "100%",
           height: "60%",
           display: "flex",
-          alignItems: "center",
           justifyContent: "space-around",
         }}
       >
-        <Text style={{ color: "#2c5282", fontSize: 15, fontWeight: "600" }}>
+        <Text
+          style={{
+            color: "#2c5282",
+            fontSize: 15,
+            fontWeight: "600",
+            textAlign: "center",
+          }}
+        >
           {updateProduct ? "Update" : "Add New"} Product 🚀
         </Text>
-        <TextInput
-          maxLength={50}
-          keyboardType="default"
-          style={styles.input}
-          placeholder="Product title"
-          onChangeText={(text) => setNewProduct({ ...newProduct, title: text })}
-          value={newProduct.title}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              maxLength={50}
+              keyboardType="default"
+              style={styles.input}
+              placeholder="Product title"
+              onChangeText={onChange}
+              value={value}
+              onBlur={onBlur}
+            />
+          )}
+          name="title"
         />
-        <TextInput
-          maxLength={50}
-          keyboardType="default"
-          style={styles.input}
-          placeholder="Product price"
-          onChangeText={(text) => setNewProduct({ ...newProduct, price: text })}
-          value={newProduct.price}
+        {errors.title && (
+          <Text
+            style={{ color: "red", fontWeight: "600", paddingHorizontal: 5 }}
+          >
+            This is required.
+          </Text>
+        )}
+
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              maxLength={50}
+              keyboardType="default"
+              style={styles.input}
+              placeholder="Product price"
+              onChangeText={onChange}
+              value={value}
+              onBlur={onBlur}
+            />
+          )}
+          name="price"
         />
-        <TextInput
-          maxLength={50}
-          keyboardType="default"
-          style={styles.input}
-          placeholder="Product Description"
-          onChangeText={(text) =>
-            setNewProduct({ ...newProduct, description: text })
-          }
-          value={newProduct.description}
+        {errors.price && (
+          <Text style={{ color: "red", fontWeight: "600" }}>
+            This is required.
+          </Text>
+        )}
+
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              maxLength={50}
+              keyboardType="default"
+              style={styles.input}
+              placeholder="Product Description"
+              onChangeText={onChange}
+              value={value}
+              onBlur={onBlur}
+            />
+          )}
+          name="description"
         />
-        <TextInput
-          maxLength={50}
-          keyboardType="default"
-          style={styles.input}
-          placeholder="Product category"
-          onChangeText={(text) =>
-            setNewProduct({ ...newProduct, category: text })
-          }
-          value={newProduct.category}
+        {errors.description && (
+          <Text style={{ color: "red", fontWeight: "600" }}>
+            This is required.
+          </Text>
+        )}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              maxLength={50}
+              keyboardType="default"
+              style={styles.input}
+              placeholder="Product category"
+              onChangeText={onChange}
+              value={value}
+              onBlur={onBlur}
+            />
+          )}
+          name="category"
         />
+        {errors.category && (
+          <Text style={{ color: "red", fontWeight: "600" }}>
+            This is required.
+          </Text>
+        )}
       </View>
-      <TouchableOpacity style={{ width: "100%" }} onPress={handleCreateProduct}>
+      <TouchableOpacity
+        style={{ width: "100%" }}
+        onPress={handleSubmit(handleCreateProduct)}
+      >
         <View style={styles.button}>
           <Text style={{ color: "#2c5282", fontSize: 15, fontWeight: "600" }}>
             Save
