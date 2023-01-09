@@ -44,8 +44,19 @@ Realice la maquetación de los siguientes wireframes, Una lista a doble columna 
 
 ## Imagenes del producto
 
+<img width="450" alt="image" src="https://user-images.githubusercontent.com/45639602/211387269-bc100724-a168-4ca8-a69d-65c957e007d7.png"> <img width="450" alt="image" src="https://user-images.githubusercontent.com/45639602/211387353-db9da680-dde3-4d7d-914a-07a3c3ac1677.png">
+
+<img width="450" alt="image" src="https://user-images.githubusercontent.com/45639602/211387411-4b81cc08-c813-4a23-8178-928593306654.png"><img width="450" alt="image" src="https://user-images.githubusercontent.com/45639602/211387592-2760e754-cdca-4dd3-8d3b-d99707a6edde.png">
+
+<img width="450" alt="image" src="https://user-images.githubusercontent.com/45639602/211387668-6ad01e7a-83a3-4f8c-a02f-88f3ce959735.png"><img width="450" alt="image" src="https://user-images.githubusercontent.com/45639602/211387709-8999ab85-6bb7-45ed-bf70-ce8280f43859.png">
+
+<img width="450" alt="image" src="https://user-images.githubusercontent.com/45639602/211387791-86df3f06-e8d8-4790-9d23-96437f86707e.png"> <img width="450" alt="image" src="https://user-images.githubusercontent.com/45639602/211388464-a68b6b8e-fc20-4820-a2b8-59ceabe6ec0a.png">
 
 
+## Demo del producto
+
+
+https://user-images.githubusercontent.com/45639602/211388654-05a132e3-6e24-412c-bf00-cff2922df419.mp4
 
 
 ## Autor ✒️
