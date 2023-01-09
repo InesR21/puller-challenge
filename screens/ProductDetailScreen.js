@@ -55,8 +55,7 @@ const ProductDetailScreen = () => {
           style={{
             padding: 20,
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-around",
+            justifyContent: "space-between",
             flex: 1,
           }}
         >
@@ -86,7 +85,7 @@ const ProductDetailScreen = () => {
               </Text>
             </View>
 
-            <View style={{ marginTop: 40 }}>
+            <View style={{ marginTop: 10 }}>
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>
                 Descripción
               </Text>
@@ -98,7 +97,7 @@ const ProductDetailScreen = () => {
               </Text>
             </View>
 
-            <View style={{ marginTop: 20 }}>
+            <View style={{ marginTop: 5 }}>
               <View style={{ marginTop: 20 }}>
                 <Text style={{ fontSize: 20, fontWeight: "bold" }}>
                   Categoría
@@ -134,6 +133,8 @@ const ProductDetailScreen = () => {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
+              paddingVertical: 5,
+              marginBottom: 5,
             }}
           >
             <TouchableOpacity

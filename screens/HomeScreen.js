@@ -6,6 +6,7 @@ import Categories from "../components/Categories";
 import ProductList from "../components/ProductList";
 import CreateProductIcon from "../components/CreateProductIcon";
 import Loading from "../components/Loading";
+import Constants from "expo-constants";
 
 const HomeScreen = () => {
   const [products, setProducts] = useState([]);
@@ -83,6 +84,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 15,
+    marginTop: Constants.statusBarHeight + 10,
   },
 });
 
