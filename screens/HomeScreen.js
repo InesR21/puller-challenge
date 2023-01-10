@@ -8,36 +8,14 @@ import CreateProductIcon from "../components/CreateProductIcon";
 import Loading from "../components/Loading";
 import Constants from "expo-constants";
 import { useProducts } from "../hooks/useProducts";
+import { useFilter } from "../hooks/useFilter";
 
 const HomeScreen = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const [seeFilters, setSeeFilters] = useState(true);
   const { products, productBackup, loading, setProducts } = useProducts();
-  const handleFilter = (category) => {
-    if (category === "all") {
-      setProducts(productBackup);
-    } else {
-      const filteredProducts = productBackup.filter(
-        (product) => product.category === category
-      );
-      setProducts(filteredProducts);
-    }
-  };
-
-  const handleSearch = () => {
-    if (searchValue === "") {
-      setProducts(productBackup);
-      return;
-    }
-    const filteredProducts = productBackup.filter((product) =>
-      product.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
-    setProducts(filteredProducts);
-  };
-
-  useEffect(() => {
-    handleSearch();
-  }, [searchValue]);
+  const { setSearchValue, seeFilters, setSeeFilters, handleFilter } = useFilter(
+    setProducts,
+    productBackup
+  );
 
   if (loading) {
     return <Loading />;
