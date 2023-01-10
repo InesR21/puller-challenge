@@ -5,18 +5,17 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { postProduct, putProduct } from "../api/product-service";
 import Loading from "../components/Loading";
 import { useForm, Controller } from "react-hook-form";
+import { useCreateUpdateProduct } from "../hooks/useCreateUpdateProduct";
 
 const CreateProductScreen = () => {
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [productCreated, setProductCreated] = useState({});
   const updateProduct = useRoute()?.params?.product;
+  const { loading, error, productCreated, handleCreateProduct } =
+    useCreateUpdateProduct(updateProduct);
   const {
     control,
     handleSubmit,
@@ -32,23 +31,6 @@ const CreateProductScreen = () => {
       id: 155455,
     },
   });
-  const handleCreateProduct = async (data) => {
-    setLoading(true);
-    let responde;
-    if (updateProduct) {
-      responde = await putProduct(data.id, data);
-    } else {
-      responde = await postProduct(data);
-    }
-    if (responde.error) {
-      setError(responde.error);
-    } else {
-      setProductCreated(responde);
-    }
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  };
 
   useEffect(() => {
     if (updateProduct) {
