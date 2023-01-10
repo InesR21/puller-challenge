@@ -1,6 +1,5 @@
 import { View, SafeAreaView, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
-import { getProducts } from "../api/product-service";
+import React from "react";
 import SearchBar from "../components/SearchBar";
 import Categories from "../components/Categories";
 import ProductList from "../components/ProductList";
