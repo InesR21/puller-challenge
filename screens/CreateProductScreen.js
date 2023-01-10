@@ -14,8 +14,9 @@ import { useCreateUpdateProduct } from "../hooks/useCreateUpdateProduct";
 const CreateProductScreen = () => {
   const navigation = useNavigation();
   const updateProduct = useRoute()?.params?.product;
+  const update = updateProduct ? true : false;
   const { loading, error, productCreated, handleCreateProduct } =
-    useCreateUpdateProduct(updateProduct);
+    useCreateUpdateProduct(update);
   const {
     control,
     handleSubmit,
