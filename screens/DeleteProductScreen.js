@@ -1,29 +1,15 @@
 import { Text, SafeAreaView, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import * as Animatable from "react-native-animatable";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { deleteProduct } from "../api/product-service";
 import Loading from "../components/Loading";
+import { useDeleteProduct } from "../hooks/useDeleteProduct";
 
 const DeleteProductScreen = () => {
   const { product } = useRoute()?.params;
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [productDeleted, setProductDeleted] = useState({});
-
-  const handleDeleteProduct = async () => {
-    setLoading(true);
-    const responde = await deleteProduct(product.id);
-    if (responde.error) {
-      setError(responde.error);
-    } else {
-      setProductDeleted(responde);
-    }
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  };
+  const { loading, error, productDeleted, handleDeleteProduct } =
+    useDeleteProduct();
 
   useEffect(() => {
     if (error) {
@@ -83,16 +69,16 @@ const DeleteProductScreen = () => {
       >
         <TouchableOpacity
           style={{
-            backgroundColor: "#feebc8",
+            backgroundColor: "#fed7d7",
             padding: 10,
             borderRadius: 5,
             width: "45%",
           }}
-          onPress={handleDeleteProduct}
+          onPress={() => handleDeleteProduct(product.id)}
         >
           <Text
             style={{
-              color: "#9C4222",
+              color: "#9b2c2c",
               textAlign: "center",
               fontSize: 14,
               fontWeight: "bold",
@@ -104,7 +90,7 @@ const DeleteProductScreen = () => {
 
         <TouchableOpacity
           style={{
-            backgroundColor: "#fed7d7",
+            backgroundColor: "#feebc8",
             padding: 10,
             borderRadius: 5,
             width: "45%",
@@ -115,7 +101,7 @@ const DeleteProductScreen = () => {
         >
           <Text
             style={{
-              color: "#9b2c2c",
+              color: "#9C4222",
               textAlign: "center",
               fontSize: 14,
               fontWeight: "bold",
